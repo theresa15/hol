@@ -5,12 +5,7 @@ pipeline {
     }
 
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-              
-            }
-        }
+     
          stage('Build') {
             steps {
                 echo 'Hello Build'
@@ -19,18 +14,22 @@ pipeline {
                 sh 'mvn package'
             }
         }
-         stage('Deploy') {
+         stage('Test') {
             steps {
-                echo 'Hello Deploy'
+                echo 'mvn test'
                 
             }
         }
-         stage('Test') {
-            steps {
-                echo 'Hello test'
-               
-            }
-        }
+         stage ('build and publish image') {
+      steps {
+        script {
+          checkout scm
+          docker.withRegistry('', 'dockerUserID') {
+          def customImage = docker.build("theresa1/hol-pipeline:${env.BUILD_ID}")
+          customImage.push()
+          }
+    }
+
     }
 }
 
