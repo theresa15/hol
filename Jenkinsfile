@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'M2_H0ME'
+    }
 
     stages {
         stage('Hello') {
@@ -11,7 +14,9 @@ pipeline {
          stage('Build') {
             steps {
                 echo 'Hello Build'
-                sleep 5
+                sh 'mvn clean'
+                sh 'mvn install'
+                sh 'mvn package'
             }
         }
          stage('Deploy') {
