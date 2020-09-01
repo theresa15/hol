@@ -26,6 +26,8 @@ pipeline {
           checkout scm
           docker.withRegistry('', 'DockerRegistryID') {
           def customImage = docker.build("theresa1/hol-pipeline:${env.BUILD_ID}")
+          def customImage1 = docker.build("theresa1/hol-pipeline")
+          customImage.push()
           customImage.push()
           }
     }
