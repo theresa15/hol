@@ -40,7 +40,7 @@ pipeline {
 }
         stage ( 'deployment trigger'){
           steps {
-             build 'hol-CD'
+             build 'holy-CD'
           }
           
           }
